@@ -1,0 +1,41 @@
+@startuml
+class Pipeline {
+  run()
+}
+
+class PreProcessor {
+  preprocess()
+}
+
+class Estimator {
+  fit()
+  predict()
+  score()
+}
+
+class PostProcessor {
+  postprocess()
+}
+
+class ExperimentTracker {
+  log()
+  get_logs()
+}
+
+class ModelRegistry {
+  register()
+  get_model()
+}
+
+class Explainer {
+  explain()
+  check_bias()
+}
+
+Pipeline "1" *-- "1" PreProcessor : has a
+Pipeline "1" *-- "1" Estimator : has a
+Pipeline "1" *-- "1" PostProcessor : has a
+Pipeline "1" *-- "1" ExperimentTracker : has a
+Pipeline "1" *-- "1" ModelRegistry : has a
+Pipeline "1" *-- "1" Explainer : has a
+@enduml
