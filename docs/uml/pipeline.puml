@@ -1,35 +1,35 @@
 @startuml
 class Pipeline {
-  run()
+  run(): None
 }
 
 class PreProcessor {
-  preprocess()
+  preprocess(): DataFrame
 }
 
 class Estimator {
-  fit()
-  predict()
-  score()
+  fit(): Model
+  predict(): np.array
+  score(): Dict
 }
 
 class PostProcessor {
-  postprocess()
+  postprocess(): DataFrame
 }
 
 class ExperimentTracker {
-  log()
-  get_logs()
+  log(): None
+  get_logs(): Dict
 }
 
 class ModelRegistry {
-  register()
-  get_model()
+  register(): None
+  get_model(): Model
 }
 
 class Explainer {
-  explain()
-  check_bias()
+  explain(): Report
+  check_bias(): BiasReport
 }
 
 Pipeline "1" *-- "1" PreProcessor : has a
