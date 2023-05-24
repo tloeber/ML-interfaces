@@ -1,0 +1,53 @@
+@startuml
+class DataSet {
+}
+
+abstract class BaseEstimator {
+  + fit() : Model
+  + predict() : np.array
+  + score() : Dict
+}
+
+BaseEstimator "1" *-- "1" DataSet : has a
+
+abstract class RegressionEstimator {
+  + score() : Dict
+}
+
+class LinearRegression extends RegressionEstimator {
+  + fit() : Model
+  + predict() : np.array
+}
+
+class XGBoostRegressor extends RegressionEstimator {
+  + fit() : Model
+  + predict() : np.array
+}
+
+abstract class ClassificationEstimator {
+  + score() : Dict
+}
+
+class LogisticRegression extends ClassificationEstimator {
+  + fit() : Model
+  + predict() : np.array
+}
+
+class DecisionTreeClassifier extends ClassificationEstimator {
+  + fit() : Model
+  + predict() : np.array
+}
+
+class SVMClassifier extends ClassificationEstimator {
+  + fit() : Model
+  + predict() : np.array
+}
+
+BaseEstimator <|-- RegressionEstimator
+BaseEstimator <|-- ClassificationEstimator
+RegressionEstimator <|-- LinearRegression
+RegressionEstimator <|-- XGBoostRegressor
+ClassificationEstimator <|-- LogisticRegression
+ClassificationEstimator <|-- DecisionTreeClassifier
+ClassificationEstimator <|-- SVMClassifier
+@enduml
