@@ -1,0 +1,73 @@
+@startuml
+
+abstract class BaseDataSet {
+  + from_file()
+  + from_database()
+  + from_memory()
+  - splitter: BaseDataSplitter
+  - data: BaseDataContainer
+}
+
+abstract class BaseDataContainer {
+  + save()
+}
+
+class StructuredDataContainer {
+  + to_pandas()
+  + to_numpy()
+  + to_csv()
+  + to_jsonl()
+}
+
+class SemiStructuredDataContainer {
+  + to_jsonl()
+}
+
+class ImageDataContainer {
+  + to_...()
+}
+
+class AudioDataContainer {
+  + to_...()
+}
+
+class CustomDataContainer {
+  + to_...()
+}
+
+abstract class BaseDataSplitter {
+  - test_proportion: float = 0.2
+  - validation_proportion: float = 0.2
+  - _split_data()
+  + get_train_data()
+  + get_test_data()
+  + get_validation_data()
+}
+
+class IndependentDataSplitter
+class TimeSeriesDataSplitter {
+  - time_identifiers
+}
+
+class ClusteredDataSplitter {
+  - cluster_identifiers
+}
+
+class SpatialDataSplitter {
+  - coordinate_identifiers
+}
+
+BaseDataSplitter <|-- IndependentDataSplitter
+BaseDataSplitter <|-- TimeSeriesDataSplitter
+BaseDataSplitter <|-- ClusteredDataSplitter
+BaseDataSplitter <|-- SpatialDataSplitter
+
+BaseDataSet "1" o-- "1" BaseDataSplitter : has a
+BaseDataSet "1" o-- "1" BaseDataContainer : has a
+BaseDataContainer <|-- StructuredDataContainer
+BaseDataContainer <|-- SemiStructuredDataContainer
+BaseDataContainer <|-- ImageDataContainer
+BaseDataContainer <|-- AudioDataContainer
+BaseDataContainer <|-- CustomDataContainer
+
+@enduml
