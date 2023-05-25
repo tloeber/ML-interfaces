@@ -22,11 +22,9 @@ Traditional ML workflow inefficiencies are addressed as follows:
 
 ## The Solution
 
-The foundation of this project's solution lies in leveraging [object-oriented design patterns](https://en.wikipedia.org/wiki/Design_Patterns). While these lessons have long been absorbed in some circles (such as the Java world), these old lessons are unfortunately much less widely followed in the Python world - particularly in the corners of that world where many practitioners have come in from scientific computing, machine learning, etc.
+The foundation of this project's solution lies in leveraging good object-oriented design, such as [design patterns](https://en.wikipedia.org/wiki/Design_Patterns) or Uncle Bob's [SOLID design principles](https://en.wikipedia.org/wiki/SOLID). While these lessons have long been absorbed in some circles (such as the Java world), these old lessons are unfortunately much less widely followed in the Python world - particularly in the corners of that world where many practitioners have come in from scientific computing, machine learning, etc. For example, we want to leverage the Liskov-substitution principle: It needs to be possible to substitute any class with any of its subclasses. For instance, swapping one estimator with another should not necessitate extensive code modifications.
 
-- **Liskov-substitution principle:** This principle permits the replacement of a class with any of its subclasses. For instance, swapping one estimator with another should not necessitate extensive code modifications.
-
-- **Balance between flexibility and simplicity:** The project's design allows the creation of a hierarchy of subclasses, with different behavior implementations per subclass. This approach balances code reuse and allows variations in behavior by subclasses. Additionally, it enables users to override behavior if needed, by providing a custom method implementation or class.
+Note that this object-oriented solution gives us both flexibility and simplicity: The project's design allows the creation of a hierarchy of subclasses, with different behavior implementations per subclass. This approach balances code reuse and allows variations in behavior by subclasses. Additionally, it enables users to override behavior if needed, by providing a custom method implementation or class.
 
 ## Side Note
 
