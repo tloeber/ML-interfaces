@@ -1,53 +1,68 @@
 @startuml
-class DataSet {
+' Definition for ScorerInterface
+interface ScorerInterface {
+  {abstract} score(): dict[str, float]
 }
 
-abstract class BaseEstimator {
-  + fit() : Model
-  + predict() : np.array
-  + score() : Dict
+class ClassificationScorer implements ScorerInterface {
+  Precision: float
+  Recall: float
+  F1_Score: float
+  CrossEntropy: float
+  score()
 }
 
-BaseEstimator "1" *-- "1" DataSet : has a
-
-abstract class RegressionEstimator {
-  + score() : Dict
+class RegressionScorer implements ScorerInterface {
+  MSE: float
+  score()
 }
 
-class LinearRegression extends RegressionEstimator {
-  + fit() : Model
-  + predict() : np.array
+ScorerInterface <|.. ClassificationScorer
+ScorerInterface <|.. RegressionScorer
+
+' Definition for EstimatorInterface
+interface EstimatorInterface {
+  #data: DataInterface
+  #scorer: ScorerInterface
+  {abstract} fit()
+  {abstract} predict()
 }
 
-class XGBoostRegressor extends RegressionEstimator {
-  + fit() : Model
-  + predict() : np.array
+class SVMClassifier implements EstimatorInterface {
+  fit()
+  predict()
+  scorer: ClassificationScorer
 }
 
-abstract class ClassificationEstimator {
-  + score() : Dict
+class XGBoostClassifier implements EstimatorInterface {
+  fit()
+  predict()
+  scorer: ClassificationScorer
 }
 
-class LogisticRegression extends ClassificationEstimator {
-  + fit() : Model
-  + predict() : np.array
+class NNClassifier implements EstimatorInterface {
+  fit()
+  predict()
+  scorer: ClassificationScorer
 }
 
-class DecisionTreeClassifier extends ClassificationEstimator {
-  + fit() : Model
-  + predict() : np.array
+class ElasticNetRegressor implements EstimatorInterface {
+  fit()
+  predict()
+  scorer: RegressionScorer
 }
 
-class SVMClassifier extends ClassificationEstimator {
-  + fit() : Model
-  + predict() : np.array
+class XGBoostRegressor implements EstimatorInterface {
+  fit()
+  predict()
+  scorer: RegressionScorer
 }
 
-BaseEstimator <|-- RegressionEstimator
-BaseEstimator <|-- ClassificationEstimator
-RegressionEstimator <|-- LinearRegression
-RegressionEstimator <|-- XGBoostRegressor
-ClassificationEstimator <|-- LogisticRegression
-ClassificationEstimator <|-- DecisionTreeClassifier
-ClassificationEstimator <|-- SVMClassifier
+EstimatorInterface <|.. SVMClassifier
+EstimatorInterface <|.. XGBoostClassifier
+EstimatorInterface <|.. NNClassifier
+EstimatorInterface <|.. ElasticNetRegressor
+EstimatorInterface <|.. XGBoostRegressor
+EstimatorInterface "1" *-- "1" ScorerInterface: has a
+EstimatorInterface "1" *-- "1" DataInterface: has a
 @enduml
