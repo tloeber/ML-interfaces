@@ -1,0 +1,62 @@
+@startuml
+
+enum BaseFormat << (E,green) Enum >> {
+}
+
+enum StructuredDataFormat << (E,green) Enum >> {
+  CSV
+  JSONL
+  PARQUET
+  PD_DATAFRAME
+}
+
+enum SemiStructuredDataFormat << (E,green) Enum >> {
+  JSONL
+}
+
+enum FileFormat << (E,green) Enum >> {
+  PATH
+  LIST_OF_PATHS
+}
+
+BaseFormat <|-- StructuredDataFormat
+BaseFormat <|-- SemiStructuredDataFormat
+BaseFormat <|-- FileFormat
+
+interface DataSetInterface {
+  +from(format: BaseFormat)
+  +get_all_data(format: BaseFormat): Any
+  +get_train_data(format: BaseFormat): Any
+  +get_test_data(format: BaseFormat): Any
+  +get_validation_data(format: BaseFormat): Any
+}
+
+interface StructuredDataSetInterface {
+  +from(format: StructuredDataFormat)
+  +get_all_data(format: StructuredDataFormat): Any
+  +get_train_data(format: StructuredDataFormat): Any
+  +get_test_data(format: StructuredDataFormat): Any
+  +get_validation_data(format: StructuredDataFormat): Any
+}
+
+interface SemiStructuredDataSetInterface {
+  +from(format: SemiStructuredDataFormat)
+  +get_all_data(format: SemiStructuredDataFormat): Any
+  +get_train_data(format: SemiStructuredDataFormat): Any
+  +get_test_data(format: SemiStructuredDataFormat): Any
+  +get_validation_data(format: SemiStructuredDataFormat): Any
+}
+
+interface UnstructuredDataSetInterface {
+  +from(format: FileFormat)
+  +get_all_data(format: FileFormat): Any
+  +get_train_data(format: FileFormat): Any
+  +get_test_data(format: FileFormat): Any
+  +get_validation_data(format: FileFormat): Any
+}
+
+DataSetInterface <|.. StructuredDataSetInterface
+DataSetInterface <|.. SemiStructuredDataSetInterface
+DataSetInterface <|.. UnstructuredDataSetInterface
+
+@enduml

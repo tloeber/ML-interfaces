@@ -1,38 +1,62 @@
 @startuml
 
+enum BaseFormat << (E,green) Enum >> {
+  UNDEFINED
+}
+
+enum StructuredDataFormat << (E,green) Enum >> {
+  PARQUET
+  CSV
+  JSONL
+  PD_DATAFRAME
+}
+
+enum SemiStructuredDataFormat << (E,green) Enum >> {
+  JSONL
+}
+
+enum FileFormat << (E,green) Enum >> {
+  PATH
+  PATH_LIST
+}
+
+BaseFormat <|-- StructuredDataFormat
+BaseFormat <|-- SemiStructuredDataFormat
+BaseFormat <|-- FileFormat
+
+interface DataSetInterface {
+  +from(format: BaseFormat)
+  +get_train_data(format: BaseFormat)
+  +get_test_data(format: BaseFormat)
+  +get_validation_data(format: BaseFormat)
+  +get_all_data(format: BaseFormat)
+}
+
+DataSetInterface <|-- StructuredDataSetInterface
+DataSetInterface <|-- SemiStructuredDataSetInterface
+
+interface StructuredDataSetInterface {
+  +from(format: StructuredDataFormat)
+  +get_train_data(format: StructuredDataFormat)
+  +get_test_data(format: StructuredDataFormat)
+  +get_validation_data(format: StructuredDataFormat)
+  +get_all_data(format: StructuredDataFormat)
+}
+
+interface SemiStructuredDataSetInterface {
+  +from(format: SemiStructuredDataFormat)
+  +get_train_data(format: SemiStructuredDataFormat)
+  +get_test_data(format: SemiStructuredDataFormat)
+  +get_validation_data(format: SemiStructuredDataFormat)
+  +get_all_data(format: SemiStructuredDataFormat)
+}
+
 abstract class BaseDataSet {
   + from_file()
   + from_database()
   + from_memory()
   - splitter: BaseDataSplitter
   - data: BaseDataContainer
-}
-
-abstract class BaseDataContainer {
-  + save()
-}
-
-class StructuredDataContainer {
-  + to_pandas()
-  + to_numpy()
-  + to_csv()
-  + to_jsonl()
-}
-
-class SemiStructuredDataContainer {
-  + to_jsonl()
-}
-
-class ImageDataContainer {
-  + to_...()
-}
-
-class AudioDataContainer {
-  + to_...()
-}
-
-class CustomDataContainer {
-  + to_...()
 }
 
 abstract class BaseDataSplitter {

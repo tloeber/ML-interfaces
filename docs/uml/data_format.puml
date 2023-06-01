@@ -1,0 +1,27 @@
+@startuml
+
+enum BaseDataFormat << (E,green) Enum >> {
+  UNDEFINED
+}
+
+enum StructuredDataFormat << (E,green) Enum >> {
+  PARQUET
+  CSV
+  JSONL
+  PD_DATAFRAME
+}
+
+enum SemiStructuredDataFormat << (E,green) Enum >> {
+  JSONL
+}
+
+enum FileFormat << (E,green) Enum >> {
+  PATH
+  PATH_LIST
+}
+
+BaseDataFormat <|-- StructuredDataFormat
+BaseDataFormat <|-- SemiStructuredDataFormat
+BaseDataFormat <|-- FileFormat
+
+@enduml
