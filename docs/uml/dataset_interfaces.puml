@@ -10,7 +10,8 @@ interface SplittableDataInterface {
 interface ReformattableDataInterface {
   +<<create>>from_format(format: BaseDataFormat)
   +to_format(format: BaseDataFormat)
-  +get_storage_format(): BaseDataFormat
+  +get_storage_format()
+  +persist()
 }
 
 ReformattableDataInterface <|-- StructuredDataInterface
@@ -20,19 +21,16 @@ ReformattableDataInterface <|-- FileDataInterface
 interface StructuredDataInterface {
   +<<create>>from_format(format: StructuredDataFormat)
   +to_format(format: StructuredDataFormat)
-  +get_storage_format(): StructuredDataFormat
 }
 
 interface SemiStructuredDataInterface {
   +<<create>>from_format(format: SemiStructuredDataFormat)
   +to_format(format: SemiStructuredDataFormat)
-  +get_storage_format(): SemiStructuredDataFormat
 }
 
 interface FileDataInterface {
   +<<create>>from_format(format: FileFormat)
   +to_format(format: FileFormat)
-  +get_storage_format(): FileFormat
 }
 
 @enduml
