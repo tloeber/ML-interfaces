@@ -1,18 +1,24 @@
 # Class diagrams
 
-Let's start by looking at the estimator:
+## Estimator
 ![Alt text](http://www.plantuml.com/plantuml/png/lLDTIyCm57tlhxZC1pzmWxqM7uPR5HzMP0CHH2Hcjnf8cv5xzo1p_zsqMudjCYk8UydMctFFERad6H4BowjSHwSmmKmLYfKf83CMvj9Oj7S5eys4n4ZL_zexi8u0rkALs0h96w1o--myXeMI_EIgbv1f8_WvsaIHr888nkMgCYL5ARVb0vKlDUPOC0KLxYrAHGuUR-bSQOPIQEs_RuOlLQUlZAqXIWgsPldXgpk7tiyCtomI_ThBT9u4sThOgy_187ZOCB9j8zfF9I5MkM0J3AQnwTsUB0IB62PkzLskJ9L8l9Tq8yrCiJjRexIqM4RxVO3pXsbzpERq3bYgMJqLG6qdD2-lz7XxRGpnaTJIz4X2YLjPoHHvTmdCN_LsF8T7-9z2JHf_mnltv23APzo5JDDkK6YsNT8_0dl37bpq-zLlw-t4y2u8H4TNzHJtUaPOB5Qv_W80 "Estimator")
 
+
+# Dataset
+Creating a good abstraction for our data may be the most important part of this project, because this is probably the biggest reason for the incompatibility between different frameworks, as well as the tight coupling of different components even *within* some of the major ML frameworks (example of AWS Sagemaker coming soon).
+
 Let's break down the dataset abstraction into two components; first, the general dataset interface we implement:
-![Alt text](http:////www.plantuml.com/plantuml/png/dPF1QeH038RlFiKSTodx0eiiIoaBlNOVG5AD4fXn91DxQVlkTPIAAMNgz2I9tq--HBm60PRHsQAWNf1RgD7S1qiYy6hn2GIUr_vxOSn3Xr890_LL0mA7uzcyOElPmI-9bSSW6VWRM9feyZapmDezzETcqGItx5gMDIC8NYujUrSjy65vdCqZX3bqc-jZ38ZV0KNR89wXmszwxW_8WS9KHCc4MlbnEfcxy5ZBoDYebt_dqD5_ipVwqTxSKWdb7L97zJbteUgZgWtpPNGyBQJmj5GyNRPA32M6Ao2EksBVn5_v2m00)
+![Alt text](http://www.plantuml.com/plantuml/png/dPF1QeH038RlFiKSTodx0eiiIoaBlNOVG5AD4fXn91DxQVlkTPIAAMNgz2I9tq--HBm60PRHsQAWNf1RgD7S1qiYy6hn2GIUr_vxOSn3Xr890_LL0mA7uzcyOElPmI-9bSSW6VWRM9feyZapmDezzETcqGItx5gMDIC8NYujUrSjy65vdCqZX3bqc-jZ38ZV0KNR89wXmszwxW_8WS9KHCc4MlbnEfcxy5ZBoDYebt_dqD5_ipVwqTxSKWdb7L97zJbteUgZgWtpPNGyBQJmj5GyNRPA32M6Ao2EksBVn5_v2m00)
 
 Secondly, the concrete realization we use: An aggregation of a data *container* object (which contains the actual data, as well as logic to transform between different data formats) and a data splitter object (which contains concrete logic for how to split the data into training, validation, and test set, and uses information about the dependency relationship between the individual records to carry this out properly). To make this diagram easier to understand, let's save the details of the data container for dedicated diagram:
-![Alt text](http:////www.plantuml.com/plantuml/png/tPGnR_em4CNtV0gBYRzG_cexHXIXKbLYRRf7HtAXbXmxEXzTIhzxxGImAiU8hbr0zlkT_UvuPcqPY0-ToZBOMIQeMTGAh1LFOF4P64fayPa9iMZ9TFFMK0TSNDINOVtFwRdjbMH62c9vsl5guzP1sHZD8BMJlX8NX-hXzfpHSjMJwGsnDBeGhJB0ub7S_N_m-WSesO2Nhb7LOBBoPkRUz6AFN34vAwUzGhpYs2F3JWq-jfgHMgZnmdihj-F1sI-AGAbRQ3UzSMXRtM2FxaFpZycFwflii4IIQ2S6wxHA-aBPIYGRpjoeWtKODd5HFKhJTMKFB45DL1b3ZTJ0qONJ4GWnSVMEakU-nNXkD0-7_ONVD3IQu4AlosLD28ohbN-UrGXVUQKBDZT0tgrbGx37CptizqXMMhzm9gDtkZpcUIg82JeEPXgEyvXcfpAO1HHPpEvdmZZGVqT75E8Th81KGPJFK975KfuVLwd09l1hySZMRhh-3_iR)
+![Alt text](http://www.plantuml.com/plantuml/png/tPGnR_em4CNtV0gBYRzG_cexHXIXKbLYRRf7HtAXbXmxEXzTIhzxxGImAiU8hbr0zlkT_UvuPcqPY0-ToZBOMIQeMTGAh1LFOF4P64fayPa9iMZ9TFFMK0TSNDINOVtFwRdjbMH62c9vsl5guzP1sHZD8BMJlX8NX-hXzfpHSjMJwGsnDBeGhJB0ub7S_N_m-WSesO2Nhb7LOBBoPkRUz6AFN34vAwUzGhpYs2F3JWq-jfgHMgZnmdihj-F1sI-AGAbRQ3UzSMXRtM2FxaFpZycFwflii4IIQ2S6wxHA-aBPIYGRpjoeWtKODd5HFKhJTMKFB45DL1b3ZTJ0qONJ4GWnSVMEakU-nNXkD0-7_ONVD3IQu4AlosLD28ohbN-UrGXVUQKBDZT0tgrbGx37CptizqXMMhzm9gDtkZpcUIg82JeEPXgEyvXcfpAO1HHPpEvdmZZGVqT75E8Th81KGPJFK975KfuVLwd09l1hySZMRhh-3_iR)
 
 
 
 For completeness, here is the diagram for the data format:
 ![Alt text](http:///www.plantuml.com/plantuml/png/SoWkIImgAStDuU9ApIlDLN1AB4vrIIn9TCiloaqiKR2nKT1mrKalIatDqrHm1IcmirEevb9G2FLpSNNpz7DruQg5wWmkAIfDBYajIaqXHd-0Or1Wg6i8aEKS70OalOBz_Nn0uYxnBeuXZcv1Zhwk2ADJSpD9C1vc75o_MsPEAc47XNX0gNWVp-0Ga6RqmAZHrSNgJUmA4Ouch1ZXGYukXzIy55240000)
 
-Finally, here is the complete ML pipeline:
+# Pipeline
+Finally, here is a complete ML pipeline:
 ![Alt text](http://www.plantuml.com/plantuml/png/XP91ImCn48Nl-ok6dbIeuBMd8kfDASLx6RFZDZIRX9afMCJ_RhAfeTlAzXJoyhsypPjTYYBhldUDSIW2Anl9MK_mtG3mtj_SBk0jU6f-cZ-2QSN1a4ZWWOfCiGWPVaB55yR-nF4iQdlK8_vfDNEleILNtAqrW-JZFJBZ8QbY0jDmNJexoGwYP-59kPB-5ObjJrxV6SsEYi-5hZuDe2FT94Kk4ijdhgcpedmefGmRuZDxdy7wi56yG-kFiLHscLjJ3An9Criokys7nI7-CQtbADzHnp5xcC7TV9xNyGGMi4K1_9-ipKzZuredqSis9_5nVPDeBQfYI_9j_ZD_0G00 "Pipeline")
+Note that this is part of the design is lowest priority, because there already exist a number of good pipeline tools such as MLFlow Piperlines. Thus, I still need to decide if the pipeline abstraction is even needed.
