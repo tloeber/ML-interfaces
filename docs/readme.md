@@ -9,7 +9,7 @@ Creating a good abstraction for our data may be the most important part of this 
 
 ### Interfaces
 Let's start by defining the *interface* we will implement. Actually, this is split into two different interfaces to account for the two different kind of operations we want to perform, splitting and transforming between different formats:
-![Alt text](http://www.plantuml.com/plantuml/png/ZPBHQeDG38RlprFaKZVm0KIaR6Emwps0P3Ps1uxdbEHtDslVVTfsTb1nlPAOp_p9Xni3AuO-EESZH3jkXPxOv8N1poc2VHHzcrlVZkYngbeLXjHrfwblRFWmWMNvGgzD_Ju8f37124p4Jj10sSTco-0iB-UyTy6SD9DYk0lyuk17pgVxvd88wzpHkJQmsQqDj-AdEXJ5xHTKafyyz19Xz4VrOlIIuovfpyZEZ-l6hwVwx1NfF-fokY4fx-INFhtVYvgtgJWwjtPWKHpgnQrB6aoCiYdXuQAML31eDFBHmB4T-_XaN6KiJigTsqZSJZ_b3m00 "data_interfaces")
+![Alt text](http://www.plantuml.com/plantuml/png/ZPBHQeDG38RlprFaKZVm0KIaR6Emwps0P3Ps1uxdbEHtDslVVTfsTb1nlPAOp_p9Xni3AuO-EESZH3jkXPxOv8N1poc2VHHzcrlVZkYngbeLXjHrfwblRFWmWMNvGgzD_Ju8f37124p4Jj10sSTco-0iB-UyTy6SD9DYk0lyuk17pgVxvd88wzpHkJQmsQqDj-AdEXJ5xHTKafyyz19Xz4VrOlIIuovfpyZEZ-l6hwVwx1NfF-fokY4fx-INFhtVYvgtgJWwjtPWKHpgnQrB6aoCiYdXuQAML31eDFBHmB4T-_XaN6KiJigTsqZSJZ_b3m00 "data_container_interfaces")
 
 The BaseData*Container*Interface provides a contract for how we can get relevant subsets (training, test, and validation set), as well as the whole data set, from our data abstraction.(Note that it does not contain a method to split the data, because this can be handled by our data abstraction under the hood *if* necessary - and it will in fact not always be necessary, because we should allow our data container to be constructed from data that already comes pre-split.)
 
@@ -23,13 +23,13 @@ Now let's talk about the second interface, the BaseDataSetInterface. It provides
 
 But how do we constrain the permissible data formats to only those that make sense were given kind of data? To model this, we actually will not implement the BaseDataSetInterface directly, but rather we will derive more specific interfaces to model the kind of data sets we are dealing with:
 
-![Alt text](http://www.plantuml.com/plantuml/png/dPJ1Rk8m48RlVeevWdRX0L0KaTqaAXMbBGczHXPCqaWaGVRaK1NUlPgK6e4oBVHasVw_yJ-_HfvQqeRQQgjKMHEQNAyH_ccBeIQT8CtSuRi2-EDvQuEQqFTpqrHPtfXAq-1pcJWkxlP31gYvGbGWPPOQemlyKdVdEpIsjBmvADLhojkFHf2GQTVK6jpmlRlyZi2gl9sAoosUQq-PIIQkYUqCbSEJfOSp8zpRhyquN3OaosLJ7DtDLXYI7tS2zrnVryAGM2Gb1oLE2MEkbVxXO8bIMBVLnQI3vy4W-biOn7e84GjylujXjGYZUBQ8GdKuads9olnJi7nUHQa2-9-yA83xv74nv_Cm2uCqY9V1G-HASrEtbU_AEPxx_DbGUdTSilaiIHc-38Cpw_FH9nHC2-AJG-7J69koUANnteSBV0AjHGk33UPbZHOCKcjgeBST3fMQOhtXZ_83 "dataset_simplified")
+![Alt text](http://www.plantuml.com/plantuml/png/dPJ1Rk8m48RlVeevWdRX0L0KaTqaAXMbBGczHXPCqaWaGVRaK1NUlPgK6e4oBVHasVw_yJ-_HfvQqeRQQgjKMHEQNAyH_ccBeIQT8CtSuRi2-EDvQuEQqFTpqrHPtfXAq-1pcJWkxlP31gYvGbGWPPOQemlyKdVdEpIsjBmvADLhojkFHf2GQTVK6jpmlRlyZi2gl9sAoosUQq-PIIQkYUqCbSEJfOSp8zpRhyquN3OaosLJ7DtDLXYI7tS2zrnVryAGM2Gb1oLE2MEkbVxXO8bIMBVLnQI3vy4W-biOn7e84GjylujXjGYZUBQ8GdKuads9olnJi7nUHQa2-9-yA83xv74nv_Cm2uCqY9V1G-HASrEtbU_AEPxx_DbGUdTSilaiIHc-38Cpw_FH9nHC2-AJG-7J69koUANnteSBV0AjHGk33UPbZHOCKcjgeBST3fMQOhtXZ_83 "dataset_interface_simplified")
 
 We use an Enum to model the possible datatypes that a given type of data could be represented. For example, a structured data set would be commonly stored on disk in a parquet, csv, or JSON Lines format, or in memory as a Pandas DataFrame. (Note that you should return format will correspond to a given return type which is not necessarily the same. For example, when we get our dataset in csv format the return type would be `str`, or even `None` if we write to a file . We will deal with these details later).
 
 For simplification, the previous diagram omitted the relationship between the specific interfaces and the corresponding enum; the more complete diagram would look like this:
 
-![Alt text](http://www.plantuml.com/plantuml/png/bPJ1Re9048Rl-nHxrBJw08OGQO7KnjfMi5UoqO6I29ZTuT1KtxqkjKmq3A4NSNV_R_QVFvET6rGQws8lH5uYw5HjGJue0xv25G4ksirl8UMTusmrA0JNJNLL96cb2uMZty-ivS9cFRO0LWD46M1YiD8gWpzrity0RN9Z5oSXEaqvnyb4HgZhBTOQTlQyFUmZeCZ_JuNv7gwrb1bZOb1iXBBXzKjFLqRutWQP8PmtnCiPKnJTS2iDn5rE0hgEwxfZI0oWO8FYfyHYr4hdS5Y9453MnSsaIyUHe-0-qm3bM0PMuBfD39kL7uIBLU2BquMaMuVmRzxwVHF4vt-FqSVvzpbwNItjlf_uNko5Q-ybeDBKrC3oJRcMfypx3CLFbq-oN4InXM_3i9br-UWICgOPCJba7esfphDFd1vTUOFFP6t0oD4Eqhm48pLWhKk9NmSOy-D5vJejalS-b6_HjiDGLwtEeTpPT_m7 "dataset")
+![Alt text](http://www.plantuml.com/plantuml/png/bPJ1Re9048Rl-nHxrBJw08OGQO7KnjfMi5UoqO6I29ZTuT1KtxqkjKmq3A4NSNV_R_QVFvET6rGQws8lH5uYw5HjGJue0xv25G4ksirl8UMTusmrA0JNJNLL96cb2uMZty-ivS9cFRO0LWD46M1YiD8gWpzrity0RN9Z5oSXEaqvnyb4HgZhBTOQTlQyFUmZeCZ_JuNv7gwrb1bZOb1iXBBXzKjFLqRutWQP8PmtnCiPKnJTS2iDn5rE0hgEwxfZI0oWO8FYfyHYr4hdS5Y9453MnSsaIyUHe-0-qm3bM0PMuBfD39kL7uIBLU2BquMaMuVmRzxwVHF4vt-FqSVvzpbwNItjlf_uNko5Q-ybeDBKrC3oJRcMfypx3CLFbq-oN4InXM_3i9br-UWICgOPCJba7esfphDFd1vTUOFFP6t0oD4Eqhm48pLWhKk9NmSOy-D5vJejalS-b6_HjiDGLwtEeTpPT_m7 "dataset_interface")
 
 ### Implementation
 
