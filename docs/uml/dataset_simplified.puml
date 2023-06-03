@@ -57,8 +57,4 @@ BaseDataFormat <|-- FileFormat
 
 BaseDataSetInterface .right.|> BaseDataFormat : uses (defines return type)
 
-StructuredDataInterface .right.|> StructuredDataFormat
-SemiStructuredDataInterface .right.|>  SemiStructuredDataFormat
-FileDataInterface .right.|> FileFormat
-
 @enduml

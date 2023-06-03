@@ -1,36 +1,27 @@
 @startuml
 
-interface SplittableDataInterface {
-  +get_train_data(): ReformattableDataInterface
-  +get_test_data(): ReformattableDataInterface
-  +get_validation_data(): ReformattableDataInterface
-  +get_all_data(): ReformattableDataInterface
+interface BaseDataContainerInterface {
+  +<<create>>from_subsets()
+  +<<create>>from_complete_set()
+
+  +get_train_data(): BaseDataSetInterface
+  +get_test_data(): BaseDataSetInterface
+  +get_validation_data(): BaseDataSetInterface
+  +get_all_data(): BaseDataSetInterface
 }
 
-interface ReformattableDataInterface {
+class BaseDataContainer
+BaseDataContainerInterface <|.. BaseDataContainer : implements
+
+interface BaseDataSetInterface{
   +<<create>>from_format(format: BaseDataFormat)
+
   +to_format(format: BaseDataFormat)
   +get_storage_format()
   +persist()
 }
 
-ReformattableDataInterface <|-- StructuredDataInterface
-ReformattableDataInterface <|-- SemiStructuredDataInterface
-ReformattableDataInterface <|-- FileDataInterface
 
-interface StructuredDataInterface {
-  +<<create>>from_format(format: StructuredDataFormat)
-  +to_format(format: StructuredDataFormat)
-}
-
-interface SemiStructuredDataInterface {
-  +<<create>>from_format(format: SemiStructuredDataFormat)
-  +to_format(format: SemiStructuredDataFormat)
-}
-
-interface FileDataInterface {
-  +<<create>>from_format(format: FileFormat)
-  +to_format(format: FileFormat)
-}
+BaseDataContainerInterface ..|> BaseDataSetInterface: uses (get_*_data() returns instances that implement BaseDataSetInterface)
 
 @enduml
