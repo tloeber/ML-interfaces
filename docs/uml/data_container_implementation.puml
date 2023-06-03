@@ -1,0 +1,68 @@
+@startuml
+
+
+abstract class BaseDataContainer {
+  +<<create>>from_format(format: BaseDataFormat)
+  +to_format(format: BaseDataFormat)
+  +get_storage_format()
+  +persist()
+  - splitter: BaseDataSplitter
+}
+
+abstract class BaseDataSplitter {
+  - test_proportion: float = 0.2
+  - validation_proportion: float = 0.2
+  - _split_data()
+  + get_train_data()
+  + get_test_data()
+  + get_validation_data()
+}
+
+class IndependentDataSplitter
+class TimeSeriesDataSplitter {
+  - time_identifiers
+}
+
+class ClusteredDataSplitter {
+  - cluster_identifiers
+}
+
+class SpatialDataSplitter {
+  - coordinate_identifiers
+}
+
+BaseDataSplitter <|-- IndependentDataSplitter
+BaseDataSplitter <|-- TimeSeriesDataSplitter
+BaseDataSplitter <|-- ClusteredDataSplitter
+BaseDataSplitter <|-- SpatialDataSplitter
+
+
+abstract class BaseDataSet {
+  +<<create>>from_format(format: BaseDataFormat)
+  +to_format(format: BaseDataFormat)
+  +get_storage_format()
+  +persist()
+}
+
+BaseDataContainer "1" o-- "0..1" BaseDataSplitter : has a
+BaseDataContainer ..|> BaseDataSet : uses (can return)
+
+class StructuredDataSet{
+  +<<create>>from_format(format: StructuredDataFormat)
+  +to_format(format: StructuredDataFormat)
+}
+
+class SemiStructuredDataSet{
+  +<<create>>from_format(format: SemiStructuredDataFormat)
+  +to_format(format: SemiStructuredDataFormat)
+}
+
+class FileDataSet {
+  +<<create>>from_format(format: FileFormat)
+  +to_format(format: FileFormat)
+}
+BaseDataSet <|-- StructuredDataSet
+BaseDataSet <|-- SemiStructuredDataSet
+BaseDataSet <|-- FileDataSet
+
+@enduml
