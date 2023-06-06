@@ -31,11 +31,19 @@ class SpatialDataSplitter {
   - coordinate_identifiers
 }
 
+class PreSplitDataSplitter{
+  - training_set
+  - validation_set
+  - test_set
+  - _split_data(): SemanticError
+  + combine_data()
+}
+
 BaseDataSplitter <|-- IndependentDataSplitter
 BaseDataSplitter <|-- TimeSeriesDataSplitter
 BaseDataSplitter <|-- ClusteredDataSplitter
 BaseDataSplitter <|-- SpatialDataSplitter
-
+BaseDataSplitter <|-- PreSplitDataSplitter
 
 abstract class BaseDataSet {
   +<<create>>from_format(format: BaseDataFormat)
@@ -44,7 +52,7 @@ abstract class BaseDataSet {
   +persist()
 }
 
-BaseDataContainer "1" o-- "0..1" BaseDataSplitter : has a
+BaseDataContainer o-- BaseDataSplitter : has a
 BaseDataContainer ..|> BaseDataSet : uses (can return)
 
 class StructuredDataSet{
