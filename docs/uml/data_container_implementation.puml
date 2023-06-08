@@ -52,7 +52,7 @@ abstract class BaseDataSet {
   +persist()
 }
 
-BaseDataContainer o-- BaseDataSplitter : has a
+BaseDataContainer o-- BaseDataSplitter : has a (delegates to)
 BaseDataContainer ..|> BaseDataSet : uses (can return)
 
 class StructuredDataSet{
