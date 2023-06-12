@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+
+[tool.poetry]
+name = "ml_interfaces"
+version = "0.1.0"
+description = " High-level ML framework that provides standardized interfaces so we can swap out individual components in our workflow without having to change everything else."
+authors = ["Thomas Loeber <thomas.loeber73@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

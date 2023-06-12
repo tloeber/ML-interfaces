@@ -1,7 +1,8 @@
+import abc
 from enum import Enum
 
-class BaseDataFormat(Enum):
-    UNDEFINED = "undefined"
+class BaseDataFormat(abc.ABCMeta):
+    pass
 
 class StructuredDataFormat(BaseDataFormat):
     PARQUET = "parquet"
