@@ -6,7 +6,31 @@ abstract class BaseDataContainer {
   +to_format(format: BaseDataFormat)
   +get_storage_format()
   +persist()
+  - reader: BaseDataReader
+  - writer: BaseDataWriter
   - splitter: BaseDataSplitter
+}
+
+abstract class BaseDataReader {
+  read(): InMemoryRepresentation
+}
+class PandasReader {
+	read: pd.DataFrame
+}
+class JSONReader {
+	read: dict[Any, Any]
+}
+
+abstract class BaseDataWriter {
+  write(): None
+}
+
+class PandasWriter {
+	write(): None
+}
+
+class JSONWriter {
+	write: None
 }
 
 abstract class BaseDataSplitter {
@@ -53,7 +77,15 @@ abstract class BaseDataSet {
 }
 
 BaseDataContainer o-- BaseDataSplitter : has a (delegates to)
+BaseDataContainer o-- BaseDataReader : has a (delegates to)
+BaseDataContainer o-- BaseDataWriter : has a (delegates to)
 BaseDataContainer ..|> BaseDataSet : uses (can return)
+
+BaseDataReader <|-- PandasReader
+BaseDataReader <|-- JSONReader
+
+BaseDataWriter <|-- PandasWriter
+BaseDataWriter <|-- JSONWriter
 
 class StructuredDataSet{
   +<<create>>from_format(format: StructuredDataFormat)

@@ -2,9 +2,9 @@
 
 interface BaseDataSetInterface {
   +<<create>>from_format(format: BaseDataFormat)
-  +to_format(format: BaseDataFormat)
-  +get_storage_format()
-  +persist()
+  +to_format(format: BaseDataFormat): InMemoryRepresentation
+  +get_storage_format(): BaseDataFormat
+  +persist(location: StorageLocation): None
 }
 
 BaseDataSetInterface <|-- StructuredDataInterface
