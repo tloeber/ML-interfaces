@@ -1,7 +1,6 @@
-import abc
 from enum import Enum
 
-class BaseDataFormat(abc.ABCMeta):
+class BaseDataFormat(Enum):
     pass
 
 class StructuredDataFormat(BaseDataFormat):
