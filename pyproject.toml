@@ -1,18 +1,41 @@
-[build-system]
-requires = ["setuptools", "wheel"]
-
 [tool.poetry]
 name = "ml_interfaces"
-version = "0.1.0"
+version = "0.0.1"
 description = " High-level ML framework that provides standardized interfaces so we can swap out individual components in our workflow without having to change everything else."
 authors = ["Thomas Loeber <thomas.loeber73@gmail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.10"
+pandas = "^2.0.2"
+pydantic = "^1.10.9"
 
-[tool.poetry.dev-dependencies]
-pytest = "^6.2"
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.4.0"
+pylint = "^2.17.4"
+black = "^23.3.0"
+pytest = "^7.3.2"
+
+[tool.poetry.group.examples]
+optional = true
+[tool.poetry.group.examples.dependencies]
+loguru = "^0.7.0"
+
+[tool.poetry.group.cloud_aws]
+optional = true
+[tool.poetry.group.cloud_aws.dependencies]
+boto3 = "^1.26.158"
+botocore = "^1.29.158"
+
+[tool.poetry.group.models_scikit-learn]
+optional = true
+[tool.poetry.group.models_scikit-learn.dependencies]
+scikit-learn = "^1.2.2"
+
+[tool.poetry.group.data_parquet]
+optional = true
+[tool.poetry.group.data_parquet.dependencies]
+pyarrow = "^12.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
