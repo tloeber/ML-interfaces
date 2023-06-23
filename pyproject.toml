@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "ml_interfaces"
+name = "oject-oriented-ml"
 version = "0.0.1"
 description = " High-level ML framework that provides standardized interfaces so we can swap out individual components in our workflow without having to change everything else."
 authors = ["Thomas Loeber <thomas.loeber73@gmail.com>"]
