@@ -1,5 +1,5 @@
 import abc
-from data_formats import BaseDataFormat, StructuredDataFormat, \
+from .data_formats import BaseDataFormat, StructuredDataFormat, \
     SemiStructuredDataFormat, FileFormat
 
 class BaseDataSetInterface(abc.ABC):
@@ -45,4 +45,3 @@ class FileDataInterface(BaseDataSetInterface):
     @abc.abstractmethod
     def to_format(self, format: FileFormat):
         pass
-

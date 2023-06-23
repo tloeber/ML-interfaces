@@ -1,5 +1,5 @@
 import abc
-from data_set import BaseDataSetInterface
+from .data_set import BaseDataSetInterface
 
 class BaseDataContainerInterface(abc.ABC):
     @abc.abstractmethod
