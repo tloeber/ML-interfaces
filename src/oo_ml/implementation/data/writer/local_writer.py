@@ -1,14 +1,14 @@
 import pandas as pd
 import json
 
-from ml_interfaces.interface.writer import base_writer
+from oo_ml.implementation.data.writer.base_writer import BaseWriter
 
-class CSVWriter(base_writer.BaseWriter):
+class CSVWriter(BaseWriter):
     def write(self, data: pd.DataFrame, path) -> None:
         data.to_csv(path, index=False)
 
 
-class JSONWriter( base_writer.BaseWriter):
+class JSONWriter(BaseWriter):
     def write(self, data: pd.DataFrame | dict, path) -> None:
         with open(path, 'w') as f:
             json.dump(data, f)

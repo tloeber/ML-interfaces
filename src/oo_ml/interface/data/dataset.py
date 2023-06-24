@@ -1,14 +1,14 @@
 import abc
-from .data_formats import BaseDataFormat, StructuredDataFormat, \
-    SemiStructuredDataFormat, FileFormat
+
+from oo_ml.interface.data import format as data_formats  # Avoid name clash
 
 class BaseDataSetInterface(abc.ABC):
     @abc.abstractmethod
-    def from_format(self, format: BaseDataFormat):
+    def from_format(self, data_format: data_formats.BaseDataFormat):
         pass
 
     @abc.abstractmethod
-    def to_format(self, format: BaseDataFormat):
+    def to_format(self, data_format: data_formats.BaseDataFormat):
         pass
 
     @abc.abstractmethod
@@ -21,27 +21,27 @@ class BaseDataSetInterface(abc.ABC):
 
 class StructuredDataInterface(BaseDataSetInterface):
     @abc.abstractmethod
-    def from_format(self, format: StructuredDataFormat):
+    def from_format(self, data_format: data_formats.StructuredDataFormat):
         pass
 
     @abc.abstractmethod
-    def to_format(self, format: StructuredDataFormat):
+    def to_format(self, data_format: data_formats.StructuredDataFormat):
         pass
 
 class SemiStructuredDataInterface(BaseDataSetInterface):
     @abc.abstractmethod
-    def from_format(self, format: SemiStructuredDataFormat):
+    def from_format(self, data_format: data_formats.SemiStructuredDataFormat):
         pass
 
     @abc.abstractmethod
-    def to_format(self, format: SemiStructuredDataFormat):
+    def to_format(self, data_format: data_formats.SemiStructuredDataFormat):
         pass
 
 class FileDataInterface(BaseDataSetInterface):
     @abc.abstractmethod
-    def from_format(self, format: FileFormat):
+    def from_format(self, data_format: data_formats.FileFormat):
         pass
 
     @abc.abstractmethod
-    def to_format(self, format: FileFormat):
+    def to_format(self, data_format: data_formats.FileFormat):
         pass

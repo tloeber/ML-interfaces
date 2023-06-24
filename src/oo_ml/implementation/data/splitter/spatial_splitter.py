@@ -1,4 +1,4 @@
-from base_splitter import BaseDataSplitter
+from oo_ml.implementation.data.splitter.base_splitter import BaseDataSplitter
 
 
 class SpatialDataSplitter(BaseDataSplitter):

@@ -1,6 +1,5 @@
-from ..interfaces.data_sets import SemiStructuredDataInterface, FileDataInterface
-from ..interfaces.data_formats import SemiStructuredDataFormat, FileFormat
-
+from oo_ml.interface.data.format import FileFormat
+from oo_ml.interface.data.dataset import FileDataInterface
 
 class FileDataSet(FileDataInterface):
     def from_format(self, format: FileFormat):

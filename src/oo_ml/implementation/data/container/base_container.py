@@ -1,26 +1,25 @@
-from  ml_interfaces import interface
-from ml_interfaces import implementation
-# .interface.data_container import BaseDataContainerInterface
-# import ml_interfaces.interface.data_formats
-# from ml_interfaces.implementation.splitter.base_splitter import BaseDataSplitter
-# from ml_interfaces.data_reader import BaseDataReader
-# from ml_interfaces.implementation.data_writer import BaseDataWriter
+from oo_ml.interface.data.format import BaseDataFormat
+from oo_ml.interface.data.container import BaseDataContainerInterface
+from oo_ml.implementation.data.splitter.base_splitter import BaseDataSplitter
+from oo_ml.implementation.data.reader.base_reader import BaseReader
+from oo_ml.implementation.data.writer.base_writer import BaseWriter
+
 
 class BaseDataContainer(BaseDataContainerInterface):
     def __init__(
             self,
-            splitter: interface.data_set.splitter.BaseDataSplitter,
-            reader: BaseDataReader,
-            writer: BaseDataWriter
+            splitter: BaseDataSplitter,
+            reader: BaseReader,
+            writer: BaseWriter
     ):
         self.splitter = splitter
         self.reader = reader
         self.writer = writer
 
-    def from_format(self, format: data_formats.BaseDataFormat):
+    def from_format(self, data_format: BaseDataFormat):
         pass
 
-    def to_format(self, format: data_formats.BaseDataFormat):
+    def to_format(self, data_format: BaseDataFormat):
         pass
 
     def get_storage_format(self):

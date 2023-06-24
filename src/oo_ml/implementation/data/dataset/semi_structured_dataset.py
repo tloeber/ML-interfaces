@@ -1,5 +1,5 @@
-from ..interfaces.data_sets import SemiStructuredDataInterface, FileDataInterface
-from ..interfaces.data_formats import SemiStructuredDataFormat, FileFormat
+from oo_ml.interface.data.format import SemiStructuredDataFormat
+from oo_ml.interface.data.dataset import SemiStructuredDataInterface
 
 
 class SemiStructuredDataSet(SemiStructuredDataInterface):

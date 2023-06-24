@@ -1,5 +1,7 @@
 import abc
-from .data_set import BaseDataSetInterface
+
+from oo_ml.interface.data.dataset import BaseDataSetInterface
+
 
 class BaseDataContainerInterface(abc.ABC):
     @abc.abstractmethod
