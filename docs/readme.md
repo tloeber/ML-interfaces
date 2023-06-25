@@ -14,6 +14,7 @@ Let's start by defining the *interfaces* we will implement. Actually, this is sp
 ![Alt text](../img/data_design.jpg)
 
 Here is the more detailed UML diagram:
+
 ![Alt text](http:////www.plantuml.com/plantuml/png/ZPD1ReD034NtSmelYLfnW2YAehQgr7KFW5mmwKZ3J6H_kcbwzsQ20fL2Q5R8pBFvtv_P6LZHTy4v7o7QSYtqn2Ol37vE4UoZwDjuzEs87ZQRMeKXssshgQki_p215T0JN9bWFKvu5uozZ_J5mJSCdnOfYE7s-Mf6G9swGn18xYh6Oc54dh4NL8FYXi75QfuTIJ7S1KuUxy8vX6NknxawiDbrA6uXfisnBAyxQ4q-BwUJ2FiJ-EoNvv9katQCOdXCWb_FzR1Mf7-eYtD3KjxBXJw_FuYQjrEHRI_vAylZTbRrcdeJesAGtL2MJHmRKa6lqSX70yTQZF39cFPnwq_PIMpozVW5 "data_container_interfaces")
 
 The BaseData**Container**Interface provides a contract for how we can get the relevant subsets (training, test, and validation set), as well as the whole data set, from our data abstraction. (Note that this interface it does not contain a method to split the data, because this task can be handled by our data abstraction under the hood *if* necessary - and it will in fact not always be necessary, because we should allow our data container to be constructed from data that already comes pre-split.)
