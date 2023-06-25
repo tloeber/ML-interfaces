@@ -7,28 +7,28 @@ interface BaseDataSetInterface {
   +persist()
 }
 
-BaseDataSetInterface <|-- StructuredDataInterface
-BaseDataSetInterface <|-- SemiStructuredDataInterface
-BaseDataSetInterface <|-- FileDataInterface
+BaseDataSetInterface <|-- StructuredDataSetInterface
+BaseDataSetInterface <|-- SemiStructuredDataSetInterface
+BaseDataSetInterface <|-- FileDataSetInterface
 
-interface StructuredDataInterface {
+interface StructuredDataSetInterface {
   +<<create>>from_format(format: StructuredDataFormat)
   +to_format(format: StructuredDataFormat)
 }
 
-interface SemiStructuredDataInterface {
+interface SemiStructuredDataSetInterface {
   +<<create>>from_format(format: SemiStructuredDataFormat)
   +to_format(format: SemiStructuredDataFormat)
 }
 
-interface FileDataInterface {
+interface FileDataSetInterface {
   +<<create>>from_format(format: FileFormat)
   +to_format(format: FileFormat)
 }
 
-StructuredDataInterface <|-- StructuredDataset
-SemiStructuredDataInterface <|-- SemiStructuredDataset
-FileDataInterface <|-- FileDataset
+StructuredDataSetInterface <|-- StructuredDataset
+SemiStructuredDataSetInterface <|-- SemiStructuredDataset
+FileDataSetInterface <|-- FileDataset
 
 
 enum BaseDataFormat << (E,green) Enum >> {

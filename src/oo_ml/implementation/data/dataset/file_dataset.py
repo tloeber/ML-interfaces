@@ -1,7 +1,7 @@
 from oo_ml.interface.data.format import FileFormat
-from oo_ml.interface.data.dataset import FileDataInterface
+from oo_ml.implementation.data.dataset.base_dataset import BaseDataset
 
-class FileDataSet(FileDataInterface):
+class FileDataSet(BaseDataset):
     def from_format(self, format: FileFormat):
         pass
 

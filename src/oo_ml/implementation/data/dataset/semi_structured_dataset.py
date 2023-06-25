@@ -1,8 +1,8 @@
 from oo_ml.interface.data.format import SemiStructuredDataFormat
-from oo_ml.interface.data.dataset import SemiStructuredDataInterface
+from oo_ml.implementation.data.dataset.base_dataset import BaseDataset
 
 
-class SemiStructuredDataSet(SemiStructuredDataInterface):
+class SemiStructuredDataSet(BaseDataset):
     def from_format(self, format: SemiStructuredDataFormat):
         pass
 

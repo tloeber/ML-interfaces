@@ -1,8 +1,8 @@
 from oo_ml.interface.data.format import StructuredDataFormat
-from oo_ml.interface.data.dataset import StructuredDataInterface
+from oo_ml.implementation.data.dataset.base_dataset import BaseDataset
 
 
-class StructuredDataSet(StructuredDataInterface):
+class StructuredDataSet(BaseDataset):
     def from_format(self, format: StructuredDataFormat):
         pass
 

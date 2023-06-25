@@ -1,8 +1,8 @@
 @startuml
 
 interface BaseDataContainerInterface {
-  +<<create>>from_subsets()
-  +<<create>>from_complete_set()
+  +<<create>>from_subsets(train_set: BaseDataSetInterface, validation_set: BaseDataSetInterface, test_set: BaseDataSetInterface)
+  +<<create>>from_complete_set(complete_set: BaseDataSetInterface)
 
   +get_train_data(): BaseDataSetInterface
   +get_test_data(): BaseDataSetInterface
@@ -22,6 +22,6 @@ interface BaseDataSetInterface{
 }
 
 
-BaseDataContainerInterface ..|> BaseDataSetInterface: uses (get_*_data() returns instances that implement BaseDataSetInterface)
+BaseDataContainerInterface ..|> BaseDataSetInterface: uses (created from and returns instances that implement BaseDataSetInterface)
 
 @enduml

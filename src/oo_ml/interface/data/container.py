@@ -4,12 +4,22 @@ from oo_ml.interface.data.dataset import BaseDataSetInterface
 
 
 class BaseDataContainerInterface(abc.ABC):
+    @classmethod
     @abc.abstractmethod
-    def from_subsets(self):
+    def from_subsets(
+        cls,
+        train_data: BaseDataSetInterface,
+        test_data: BaseDataSetInterface,
+        validation_data: BaseDataSetInterface,
+    ):
         pass
 
+    @classmethod
     @abc.abstractmethod
-    def from_complete_set(self):
+    def from_complete_set(
+        cls,
+        all_data: BaseDataSetInterface,
+    ):
         pass
 
     @abc.abstractmethod

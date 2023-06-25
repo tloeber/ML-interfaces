@@ -9,12 +9,8 @@ class BaseDataContainer(BaseDataContainerInterface):
     def __init__(
             self,
             splitter: BaseDataSplitter,
-            reader: BaseReader,
-            writer: BaseWriter
     ):
         self.splitter = splitter
-        self.reader = reader
-        self.writer = writer
 
     def from_format(self, data_format: BaseDataFormat):
         pass
@@ -23,7 +19,4 @@ class BaseDataContainer(BaseDataContainerInterface):
         pass
 
     def get_storage_format(self):
-        pass
-
-    def persist(self):
         pass

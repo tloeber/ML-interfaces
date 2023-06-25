@@ -1,14 +1,57 @@
 @startuml
 
+BaseDataContainer o-- BaseDataSplitter : has a (delegates to)
+BaseDataContainer .right.|> BaseDataSet : uses (constructed from and returns)
 
 abstract class BaseDataContainer {
   +<<create>>from_format(format: BaseDataFormat)
   +to_format(format: BaseDataFormat)
   +get_storage_format()
   +persist()
+}
+
+abstract class BaseDataSplitter {
+  - test_proportion: float = 0.2
+  - validation_proportion: float = 0.2
+  - _split_data()
+  + get_train_data()
+  + get_test_data()
+  + get_validation_data()
+}
+
+class IndependentDataSplitter
+class TimeSeriesDataSplitter {
+  - time_identifiers
+}
+class ClusteredDataSplitter {
+  - cluster_identifiers
+}
+class SpatialDataSplitter {
+  - coordinate_identifiers
+}
+class PreSplitDataSplitter{
+  - training_set
+  - validation_set
+  - test_set
+  - _split_data(): SemanticError
+  + combine_data()
+}
+
+BaseDataSplitter <|-- IndependentDataSplitter
+BaseDataSplitter <|-- TimeSeriesDataSplitter
+BaseDataSplitter <|-- ClusteredDataSplitter
+BaseDataSplitter <|-- SpatialDataSplitter
+BaseDataSplitter <|-- PreSplitDataSplitter
+
+
+abstract class BaseDataSet {
   - reader: BaseDataReader
   - writer: BaseDataWriter
-  - splitter: BaseDataSplitter
+  +<<create>>from_format(format: BaseDataFormat)
+  +to_format(format: BaseDataFormat)
+  +get_storage_format()
+  +read()
+  +write()
 }
 
 abstract class BaseDataReader {
@@ -33,53 +76,8 @@ class JSONWriter {
 	write: None
 }
 
-abstract class BaseDataSplitter {
-  - test_proportion: float = 0.2
-  - validation_proportion: float = 0.2
-  - _split_data()
-  + get_train_data()
-  + get_test_data()
-  + get_validation_data()
-}
-
-class IndependentDataSplitter
-class TimeSeriesDataSplitter {
-  - time_identifiers
-}
-
-class ClusteredDataSplitter {
-  - cluster_identifiers
-}
-
-class SpatialDataSplitter {
-  - coordinate_identifiers
-}
-
-class PreSplitDataSplitter{
-  - training_set
-  - validation_set
-  - test_set
-  - _split_data(): SemanticError
-  + combine_data()
-}
-
-BaseDataSplitter <|-- IndependentDataSplitter
-BaseDataSplitter <|-- TimeSeriesDataSplitter
-BaseDataSplitter <|-- ClusteredDataSplitter
-BaseDataSplitter <|-- SpatialDataSplitter
-BaseDataSplitter <|-- PreSplitDataSplitter
-
-abstract class BaseDataSet {
-  +<<create>>from_format(format: BaseDataFormat)
-  +to_format(format: BaseDataFormat)
-  +get_storage_format()
-  +persist()
-}
-
-BaseDataContainer o-- BaseDataSplitter : has a (delegates to)
-BaseDataContainer o-- BaseDataReader : has a (delegates to)
-BaseDataContainer o-- BaseDataWriter : has a (delegates to)
-BaseDataContainer ..|> BaseDataSet : uses (can return)
+BaseDataSet o-- BaseDataReader : has a (delegates to)
+BaseDataSet o-- BaseDataWriter : has a (delegates to)
 
 BaseDataReader <|-- PandasReader
 BaseDataReader <|-- JSONReader
@@ -101,6 +99,7 @@ class FileDataSet {
   +<<create>>from_format(format: FileFormat)
   +to_format(format: FileFormat)
 }
+
 BaseDataSet <|-- StructuredDataSet
 BaseDataSet <|-- SemiStructuredDataSet
 BaseDataSet <|-- FileDataSet

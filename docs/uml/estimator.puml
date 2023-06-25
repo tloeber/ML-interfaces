@@ -22,7 +22,7 @@ ScorerInterface <|.. RegressionScorer
 
 ' Definition for EstimatorInterface
 interface EstimatorInterface {
-  #data: DataInterface
+  #data: DataSetInterface
   #scorer: ScorerInterface
   {abstract} fit()
   {abstract} predict()
@@ -64,5 +64,5 @@ EstimatorInterface <|.. NNClassifier
 EstimatorInterface <|.. ElasticNetRegressor
 EstimatorInterface <|.. XGBoostRegressor
 EstimatorInterface "1" *-- "1" ScorerInterface: has a
-EstimatorInterface "1" *-- "1" DataInterface: has a
+EstimatorInterface "1" *-- "1" DataSetInterface: has a
 @enduml

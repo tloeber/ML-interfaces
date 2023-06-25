@@ -19,7 +19,7 @@ class BaseDataSetInterface(abc.ABC):
     def persist(self):
         pass
 
-class StructuredDataInterface(BaseDataSetInterface):
+class StructuredDataSetInterface(BaseDataSetInterface):
     @abc.abstractmethod
     def from_format(self, data_format: data_formats.StructuredDataFormat):
         pass
@@ -28,7 +28,7 @@ class StructuredDataInterface(BaseDataSetInterface):
     def to_format(self, data_format: data_formats.StructuredDataFormat):
         pass
 
-class SemiStructuredDataInterface(BaseDataSetInterface):
+class SemiStructuredDataSetInterface(BaseDataSetInterface):
     @abc.abstractmethod
     def from_format(self, data_format: data_formats.SemiStructuredDataFormat):
         pass
@@ -37,7 +37,7 @@ class SemiStructuredDataInterface(BaseDataSetInterface):
     def to_format(self, data_format: data_formats.SemiStructuredDataFormat):
         pass
 
-class FileDataInterface(BaseDataSetInterface):
+class FileDataSetInterface(BaseDataSetInterface):
     @abc.abstractmethod
     def from_format(self, data_format: data_formats.FileFormat):
         pass

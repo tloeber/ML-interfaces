@@ -3,6 +3,7 @@ import json
 
 from oo_ml.implementation.data.writer.base_writer import BaseWriter
 
+
 class CSVWriter(BaseWriter):
     def write(self, data: pd.DataFrame, path) -> None:
         data.to_csv(path, index=False)
