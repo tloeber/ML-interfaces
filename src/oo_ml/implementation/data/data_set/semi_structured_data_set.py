@@ -1,5 +1,5 @@
 from oo_ml.interface.data.format import SemiStructuredDataFormat
-from oo_ml.implementation.data.dataset.base_dataset import BaseDataset
+from oo_ml.implementation.data.data_set.base_data_set import BaseDataset
 
 
 class SemiStructuredDataSet(BaseDataset):

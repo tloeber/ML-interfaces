@@ -1,6 +1,6 @@
 from abc import ABC
 
-from oo_ml.interface.data.dataset import BaseDataSetInterface
+from oo_ml.interface.data.data_set import BaseDataSetInterface
 from oo_ml.implementation.data.reader.base_reader import BaseReader
 from oo_ml.implementation.data.writer.base_writer import BaseWriter
 
