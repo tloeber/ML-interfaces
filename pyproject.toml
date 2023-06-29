@@ -32,6 +32,9 @@ pylint = "^2.17.4"
 black = "^23.3.0"
 pytest = "^7.3.2"
 
+[tool.poetry.group.examples]
+optional = false
+
 [tool.poetry.group.examples.dependencies]
 loguru = "^0.7.0"
 better-exceptions = "^0.3.3"
@@ -40,8 +43,6 @@ jupyter = "^1.0.0"
 ipykernel = "^6.23.3"
 ipython = "^8.14.0"
 pycocotools = "^2.0.6"
-kaleido = "0.2.1"
-fiftyone = "^0.21.0"
 
 [tool.poetry.group.cloud_aws]
 optional = true
@@ -60,14 +61,14 @@ optional = true
 scikit-learn = "^1.2.2"
 
 [tool.poetry.group.frameworks_pytorch_cpu]
-optional = true
+optional = false
 [tool.poetry.group.frameworks_pytorch_cpu.dependencies]
 torch = {version = "^2.0.1+cpu", source = "pytorch_cpu"}
 torchvision = {version = "^0.15.2+cpu", source = "pytorch_cpu"}
 torchaudio = {version = "^2.0.2+cpu", source = "pytorch_cpu"}
 
 [tool.poetry.group.frameworks_pytorch_lightning]
-optional = true
+optional = false
 [tool.poetry.group.frameworks_pytorch_lightning.dependencies]
 pytorch-lightning = "^2.0.4"
 
