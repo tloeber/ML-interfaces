@@ -1,5 +1,8 @@
 from enum import Enum
 
+import pandas as pd
+import numpy as np
+
 
 class BaseDataFormat(Enum):
     """
@@ -13,10 +16,10 @@ class BaseDataFormat(Enum):
     pass
 
 class StructuredDataFormat(BaseDataFormat):
-    PARQUET = "parquet"
-    CSV = "csv"
-    JSONL = "jsonl"
-    PD_DATAFRAME = "pd_dataframe"
+    PD_DATAFRAME = pd.DataFrame
+    NP_ARRAY = np.ndarray
+    # PARQUET = "parquet"
+    # JSONL = "jsonl"
 
 class SemiStructuredDataFormat(BaseDataFormat):
     JSONL = "jsonl"

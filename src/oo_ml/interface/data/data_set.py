@@ -1,47 +1,28 @@
 import abc
+from typing import Any
 
-from oo_ml.interface.data import format as data_formats  # Avoid name clash
+from oo_ml.interface.data.format import BaseDataFormat
+from oo_ml.interface.data.reader import Reader
+from oo_ml.interface.data.data_set_type import DataSetType
 
-class BaseDataSetInterface(abc.ABC):
+
+class DataSetInterface(abc.ABC):
     @abc.abstractmethod
-    def from_format(self, data_format: data_formats.BaseDataFormat):
+    def __init__(self, writer):
         pass
 
     @abc.abstractmethod
-    def to_format(self, data_format: data_formats.BaseDataFormat):
+    def to_format(self, data_format: BaseDataFormat):
         pass
 
     @abc.abstractmethod
-    def get_storage_format(self):
+    def get_internal_format(self) -> BaseDataFormat:
+        """
+        Tells us which of the valid internal formats is actually used to store
+        the data internally.
+        """
         pass
 
     @abc.abstractmethod
-    def persist(self):
-        pass
-
-class StructuredDataSetInterface(BaseDataSetInterface):
-    @abc.abstractmethod
-    def from_format(self, data_format: data_formats.StructuredDataFormat):
-        pass
-
-    @abc.abstractmethod
-    def to_format(self, data_format: data_formats.StructuredDataFormat):
-        pass
-
-class SemiStructuredDataSetInterface(BaseDataSetInterface):
-    @abc.abstractmethod
-    def from_format(self, data_format: data_formats.SemiStructuredDataFormat):
-        pass
-
-    @abc.abstractmethod
-    def to_format(self, data_format: data_formats.SemiStructuredDataFormat):
-        pass
-
-class FileDataSetInterface(BaseDataSetInterface):
-    @abc.abstractmethod
-    def from_format(self, data_format: data_formats.FileFormat):
-        pass
-
-    @abc.abstractmethod
-    def to_format(self, data_format: data_formats.FileFormat):
+    def write(self, target: Any = None) -> None:
         pass
