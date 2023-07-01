@@ -2,15 +2,16 @@ import abc
 from typing import Generic
 
 from oo_ml.interface.data.data_set_type import DataSetType
-from oo_ml.interface.data.reader import Reader
+from oo_ml.interface.data.reader import ReaderInterface
+from oo_ml.interface.data.writer import WriterInterface
 
 class BaseDataContainerInterface(abc.ABC, Generic[DataSetType]):
     @classmethod
     @abc.abstractmethod
     def from_subsets(
         cls,
-        reader: Reader[DataSetType],
-        writer,
+        reader: ReaderInterface[DataSetType],
+        writer: WriterInterface[DataSetType],
         train_target, val_target, test_target
     ):
         pass
@@ -19,8 +20,8 @@ class BaseDataContainerInterface(abc.ABC, Generic[DataSetType]):
     @abc.abstractmethod
     def from_complete_set(
         cls,
-        reader: Reader[DataSetType],
-        writer,
+        reader: ReaderInterface[DataSetType],
+        writer: WriterInterface[DataSetType],
         target,
     ):
         pass
