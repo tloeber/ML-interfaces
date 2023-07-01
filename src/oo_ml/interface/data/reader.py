@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Generic, Any
 
 from oo_ml.interface.data.data_set_type import DataSetType
+from oo_ml.interface.data.in_memory_format import InMemoryFormat
     # StructuredData, SemiStructuredData, ImageData
 
 
@@ -39,7 +40,7 @@ class ReaderInterface(ABC, Generic[DataSetType]):
         pass
 
     @abstractmethod
-    def read(self, target: Any) -> DataSetType:
+    def read(self, target: Any) -> InMemoryFormat[DataSetType]:
         """
         :param target: Identifier of a concrete dataset (given a datasource and
             other options defined in ReadConfig).
