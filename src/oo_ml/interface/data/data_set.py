@@ -1,4 +1,4 @@
-import abc
+from abc import abstractmethod, ABC
 from typing import Any, TypeAlias, TypeVar, Generic
 
 import pandas as pd
@@ -11,16 +11,16 @@ from oo_ml.interface.data.in_memory_format import InMemoryFormat, \
 from oo_ml.interface.data.data_set_type import DataSetType
 
 
-class DataSetInterface(abc.ABC, Generic[DataSetType]):
-    @abc.abstractmethod
+class DataSetInterface(ABC, Generic[DataSetType]):
+    @abstractmethod
     def __init__(self, in_memory_data: InMemoryFormat[DataSetType]):
         pass
 
-    @abc.abstractmethod
+    @abstractmethod
     def to_format(self, data_format: InMemoryFormatName) -> InMemoryFormat[DataSetType]:
         pass
 
-    @abc.abstractmethod
+    @abstractmethod
     def get_internal_format(self) -> InMemoryFormatName[DataSetType]:
         """
         Tells us which of the valid internal formats is actually used to store
@@ -28,6 +28,6 @@ class DataSetInterface(abc.ABC, Generic[DataSetType]):
         """
         pass
 
-    @abc.abstractmethod
+    @abstractmethod
     def write(self, target: Any = None) -> None:
         pass

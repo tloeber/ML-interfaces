@@ -1,13 +1,13 @@
-import abc
+from abc import abstractmethod, ABC
 from typing import Generic
 
 from oo_ml.interface.data.data_set_type import DataSetType
 from oo_ml.interface.data.reader import ReaderInterface
 from oo_ml.interface.data.writer import WriterInterface
 
-class BaseDataContainerInterface(abc.ABC, Generic[DataSetType]):
+class BaseDataContainerInterface(ABC, Generic[DataSetType]):
     @classmethod
-    @abc.abstractmethod
+    @abstractmethod
     def from_subsets(
         cls,
         reader: ReaderInterface[DataSetType],
@@ -17,7 +17,7 @@ class BaseDataContainerInterface(abc.ABC, Generic[DataSetType]):
         pass
 
     @classmethod
-    @abc.abstractmethod
+    @abstractmethod
     def from_complete_set(
         cls,
         reader: ReaderInterface[DataSetType],
@@ -26,18 +26,18 @@ class BaseDataContainerInterface(abc.ABC, Generic[DataSetType]):
     ):
         pass
 
-    @abc.abstractmethod
+    @abstractmethod
     def get_train_data(self) -> DataSetType:
         pass
 
-    @abc.abstractmethod
+    @abstractmethod
     def get_test_data(self) -> DataSetType:
         pass
 
-    @abc.abstractmethod
+    @abstractmethod
     def get_validation_data(self) -> DataSetType:
         pass
 
-    @abc.abstractmethod
+    @abstractmethod
     def get_all_data(self) -> DataSetType:
         pass
