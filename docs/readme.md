@@ -13,7 +13,7 @@ Creating a good abstraction for our data may be the most important part of this 
 Let's start by defining the *interfaces* we will implement. Actually, this is split into two different interfaces to account for the two different kind of operations we want to perform: *transforming between different formats*, and *splitting* the overall data. We will think of the former as simply the actual **DataSet** with which we will we working with, and the latter as a **container** for DataSets, because it contain the seperate subsets for training, validation, and testing. Let's first start by looking at this design using a basic visualization:
 ![Alt text](../img/data_design.jpg)
 
-Here is the more detailed design:
+Here is a UML diagram showing the more detailed design:
 
 ![Alt text](http://www.plantuml.com/plantuml/png/ZPFVQhD04CNlzodsql3n-G0Y4jeIw7KUGAOwseNz4sPdsuicxrvNoQQbkdWLulpEcNCSF7e6uc2qK9QH1kXGFe775s1uTfP1MQJNDFeIKluRaLkcQTBsm50SggGu8oSsaUXv5_W1MasSSljyGUiyTnEFJgl4NAQkEq9WR9g1d6a7HmQuM7uUngVv_o4AsEs0Oa3FZc34Epq__oJ5k2cCaJClloGrldDvRLRRL39uzB9OwlGorf5WUqd8WQoVxE7DCq77ijFW_Tyxp-VzBzVZYLikMtqjonN3IYfpqMZGiXTYMNjc2Xq7mZwt_1UL8jmjqAYTDf7CMPsKnen1cYUPs5fSXilFswI1s4YR5yMzEz4ZsZv-mTy0 "data_container_interfaces")
 

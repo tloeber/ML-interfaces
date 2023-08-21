@@ -128,8 +128,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Other
-img/*
+## Other
+# img/ is not included, put images to commi there.
+images/*
 examples/tmp/*
 examples/data/*
 
