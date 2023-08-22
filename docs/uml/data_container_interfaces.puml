@@ -1,37 +1,13 @@
 @startuml
-interface BaseDataContainerInterface {
+interface DataContainerInterface <BaseDataSetInterface> {
   +get_train_data(): BaseDataSetInterface
   +get_test_data(): BaseDataSetInterface
   +get_validation_data(): BaseDataSetInterface
   +get_all_data(): BaseDataSetInterface
 }
 
-interface BaseDataSetInterface{
-  +<<create>>from_format(format: BaseDataFormat)
-  +to_format(format: BaseDataFormat)
-  +get_storage_format()
-  +write(format: BaseDataFormat)
-
+class DataContainer <BaseDataSetInterface> {
 }
+DataContainerInterface <|.. DataContainer : implements
 
-BaseDataContainerInterface .right.|> BaseDataSetInterface: uses (created from and returns)
-
-abstract class BaseDataContainer {
-  - format: BaseDataFormat
-}
-BaseDataContainerInterface <|.. BaseDataContainer : implements
-
-class StructuredDataContainer {
-  - format: StructuredDataFormat
-}
-class SemiStructuredDataContainer {
-  - format: SemiStructuredDataFormat
-}
-class FileDataContainer {
-  - format: FileDataFormat
-}
-
-StructuredDataContainer .up.|> BaseDataContainer
-SemiStructuredDataContainer .up.|> BaseDataContainer
-FileDataContainer .up.|> BaseDataContainer
 @enduml
