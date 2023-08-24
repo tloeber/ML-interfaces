@@ -1,5 +1,6 @@
 @startuml
-interface DataContainerInterface <BaseDataSetInterface> {
+
+interface "<<Interface>>\nDataContainerInterface" <BaseDataSetInterface> {
   +get_train_data(): BaseDataSetInterface
   +get_test_data(): BaseDataSetInterface
   +get_validation_data(): BaseDataSetInterface
@@ -8,6 +9,17 @@ interface DataContainerInterface <BaseDataSetInterface> {
 
 class DataContainer <BaseDataSetInterface> {
 }
-DataContainerInterface <|.. DataContainer : implements
+"<<Interface>>\nDataContainerInterface" <|.. DataContainer : implements
+
+
+interface "<<Interface>>\nBaseDataSetInterface" {
+  +<<create>>from_format(format: BaseDataFormat)
+  +to_format(format: BaseDataFormat)
+  +get_storage_format()
+  +write(format: BaseDataFormat)
+
+}
+
+"<<Interface>>\nDataContainerInterface" -right-> "<<Interface>>\nBaseDataSetInterface": is generic in (needs to be parameterized by a subtype of)
 
 @enduml
