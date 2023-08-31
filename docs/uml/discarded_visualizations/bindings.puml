@@ -1,0 +1,19 @@
+@startuml
+
+abstract class DataContainer <BaseDataSetInterface> {
+}
+
+interface "<<Interface>>\nStructuredDataSetInterface"{
+  +<<create>>from_pandas(data: pd.DataFrame)
+  +<<create>>from_numpy_array(data: np.ndarray)
+  +to_pandas(): pd.DataFrame
+  +to_numpy_array(): np.ndarray
+}
+
+DataContainer -right-> "<<Interface>>\nStructuredDataSetInterface" : is parameterized by\nobject implementing\n DataSet interface
+
+class "DataContainer <StructuredDataSetInterface>"
+DataContainer <.. "DataContainer <StructuredDataSetInterface>" : <<bind>>\nBaseDataSetInterface::StructuredDataSetInterface
+"<<Interface>>\nStructuredDataSetInterface" <.. "DataContainer <StructuredDataSetInterface>"
+
+@enduml

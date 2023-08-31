@@ -7,69 +7,53 @@ interface "<<Interface>>\nDataContainerInterface" <BaseDataSetInterface> {
   +get_all_data(): BaseDataSetInterface
 }
 
-class DataContainer <BaseDataSetInterface> {
+abstract class DataContainer <BaseDataSetInterface> {
 }
 "<<Interface>>\nDataContainerInterface" <|.. DataContainer : implements
 
 
 interface "<<Interface>>\nBaseDataSetInterface" {
-  +<<create>>from_format(format: BaseDataFormat)
-  +to_format(format: BaseDataFormat)
   +get_storage_format()
-  +write(format: BaseDataFormat)
+  '+persist()
 
 }
 
-"<<Interface>>\nDataContainerInterface" -right-> "<<Interface>>\nBaseDataSetInterface": is generic in (needs to be parameterized by a *sub*type of)
+"<<Interface>>\nDataContainerInterface" -right-> "<<Interface>>\nBaseDataSetInterface": "DataContainer is generic in DataSet\n(needs to be parameterized by a *concrete* DataSet type)"
 
-class "<<Interface>>\nStructuredDataSetInterface"{
-  +<<create>>from_format(format: StructuredDataFormat)
-  +to_format(format: StructuredDataFormat)
+interface "<<Interface>>\nStructuredDataSetInterface"{
+  +<<create>>from_pandas(data: pd.DataFrame)
+  +<<create>>from_numpy_array(data: np.ndarray)
+  +to_pandas(): pd.DataFrame
+  +to_numpy_array(): np.ndarray
 }
 
-class "<<Interface>>\nSemiStructuredDataSetInterface"{
-  +<<create>>from_format(format: SemiStructuredDataFormat)
-  +to_format(format: SemiStructuredDataFormat)
+interface "<<Interface>>\nSemiStructuredDataSetInterface"{
+  +<<create>>from_json(data: str)
+  +<<create>>from_jsonlines(data: str)
+  +<<create>>from_dict(data: dict)
+  +<<create>>from_list_of_dicts(data: dict)
+  +to_json(): str
+  +to_jsonlines(): str
+  +to_dict(): dict
+  +to_list_of_dicts(): list[dict]
 }
 
-class "<<Interface>>\nFileDataSetInterface" {
-  +<<create>>from_format(format: FileFormat)
-  +to_format(format: FileFormat)
+interface "<<Interface>>\nFileDataSetInterface" {
+  +<<create>>from_directory(path: DirectoryPath)
+  +<<create>>from_files(paths: list[FilePath])
+  +to_directory(): DirectoryPath
+  +to_files(): list[FilePath]
 }
 
 "<<Interface>>\nBaseDataSetInterface" <|.. "<<Interface>>\nStructuredDataSetInterface" : implements
 "<<Interface>>\nBaseDataSetInterface" <|.. "<<Interface>>\nSemiStructuredDataSetInterface" : implements
 "<<Interface>>\nBaseDataSetInterface" <|.. "<<Interface>>\nFileDataSetInterface" : implements
 
-"<<Interface>>\nFileDataSetInterface" -right-> StructuredDataFormat : uses *concrete* type\nin its method signature
+DataContainer -right-> "<<Interface>>\nStructuredDataSetInterface" : is parameterized by\nobject implementing\n DataSet interface
 
-DataContainer -right-> "<<Interface>>\nStructuredDataSetInterface" : is parameterized by
 
-abstract class BaseDataFormat
+'Hidden arrows to fix left-to-right order
+"<<Interface>>\nStructuredDataSetInterface" -[hidden]right-> "<<Interface>>\nSemiStructuredDataSetInterface"
 
-enum StructuredDataFormat << (E,green) Enum >> {
-  PARQUET
-  CSV
-  JSONL
-  PD_DATAFRAME
-}
-
-enum SemiStructuredDataFormat << (E,green) Enum >> {
-  JSONL
-}
-
-enum FileFormat << (E,green) Enum >> {
-  PATH
-  PATH_LIST
-}
-
-BaseDataFormat <|-- StructuredDataFormat : is (virtual)\nsubclass of
-BaseDataFormat <|-- SemiStructuredDataFormat : is (virtual)\nsubclass of
-BaseDataFormat <|-- FileFormat : is (virtual)\nsubclass of
-
-'Hidden arrow to fix left-to-right order of enums
-StructuredDataFormat -[hidden]right-> SemiStructuredDataFormat
-
-"<<Interface>>\nBaseDataSetInterface" -right-> BaseDataFormat : uses *abstract* type in its method signature
 
 @enduml
