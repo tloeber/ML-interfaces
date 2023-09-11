@@ -42,6 +42,9 @@ matplotlib = "^3.7.1"
 jupyter = "^1.0.0"
 ipykernel = "*"
 ipython = "^8.14.0"
+nb-mypy = "^1.0.5"
+lightning = "^2.0.8"
+jsonargparse = {extras = ["signatures"], version = "^4.24.1"}
 
 [tool.poetry.group.cloud_aws]
 optional = true
