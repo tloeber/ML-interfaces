@@ -128,12 +128,16 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-## Other
-# img/ is not included, put images to commi there.
+# Other
+# ===
+# img/ is *not* ignored -> put images to commit there.
 images/*
-examples/tmp/*
-examples/data/*
+**/tmp/
+**_tmp.*
+**/data/
+**/_old/
+**/lightning_logs/
 
 # Tmp
-lightning_logs/*
+# ===
 MNIST/*
