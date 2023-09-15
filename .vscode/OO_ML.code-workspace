@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		// This is a temporary solutionto use poetry from the right Python version. Note that this
+		// is not an official variable name that's recognized automatically, but for now I reference this in
+		//  ~/.bash_aliases to alias `poetry` to `${PYTHONVERSION} -m poetry`.
+		"terminal.integrated.env.linux": {
+			"PYTHONVERSION": "python3.11"
+		},
+		"terminal.integrated.env.osx": {
+			"PYTHONVERSION": "python3.11"
+		},
+		// On Windows we should be using WSL, but set just in case.
+		"terminal.integrated.env.windows": {
+			"PYTHONVERSION": "python3.11",
+		},
+	}
+}
