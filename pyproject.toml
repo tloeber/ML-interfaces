@@ -47,6 +47,8 @@ nb-mypy = "^1.0.5"
 lightning = "^2.0.8"
 jsonargparse = {extras = ["signatures"], version = "^4.24.1"}
 tensorflow = "^2.13.0"
+tensorflow-datasets = "^4.9.3"
+zope = "^5.8.5"
 
 [tool.poetry.group.cloud_aws]
 optional = true
