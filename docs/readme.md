@@ -1,3 +1,18 @@
+# Terminology
+
+todo: define ambiguous terms, then decide on naming
+
+- estimator vs model
+- How best to refer to specific parts of our data design?
+  - dataset, data container
+  - X & y, X-y-pair, labeled/unlabeled example, ...
+  - distinguish between in-memory vs disk data?
+
+Resources:
+
+- <https://developers.google.com/machine-learning/crash-course/framing/ml-terminology>
+- todo: find other autoritative sources
+
 # Class diagrams
 
 ## Estimator
@@ -17,6 +32,7 @@ We can translate this into object-oriented design as follows:
 ![Alt text](https://www.plantuml.com/plantuml/png/jPLHRzf03CVVxrDOl9IqWW-04AgsgjhU9lMneCZa7BWgkOjyPXlR-jrt5m8iD8s2fhvnlf__zjz9pBqNPDcLXLB62d6E6S5eFlzwF2mMI_k0Wf-T5JIM-7GpWladz1GldqZE2V1R0TnjI5BXa97g08oJ6NJ19vAy30A_Os42PzmmNIoAVkvLALnxOSm4iWAzXvRPTos6nC5J-ZETNgZEm9HLGILPyQflybtLH-S1Ut6C6qfpnoNAE0dncxkAs1iVJz7Tq2udR3PRcIo6jJ23KTkHyR2XyCDaO2mq_DAEBP7s80xM11KobYG1-aKQrdj0kCsSpJZ4Reyv8FkAab7VK9w4TvdicFIRlkh9pET14YMmERiohT1gz6CTs1bKUXgJ7cCdIGTiTsMrJv4Pzqs6hQPMru6Q5tSKJDfgXykMGF9ljdhjzKIbkTBNYtUswT4B9-yGXR7a-p5jCcc8-BCBAOoNrEKrwYzPSOTUahh2ATBKReVhMiaXkGcrjSDT33p7qwf_Pe-cwFuuEXmoPU9uFwvGjZDuE9w_XMENtpn8-nhsJJ-nMAHNHyjdpUH2y00q6ibbVlGqx3EFY-EQbx-zLlwd1fNcu-iq3x1VNRNNJ7jB3H-BVxDybjQjNoYJSp5ZDylJweBJQwUKklbYj2OBoEn-rDiiDp-Xe5mcuWujWMDDhAvfQ_AyhMLNZQTh7uDIwfwiZl_TVm40 "data_design")
 
 #### Data*Set* Interface
+
 Let's first look at the interface for the Data*Set*s: This interface is to provide a contract for the kind of objects that our data container returns (whether we retrieve the complete dataset or a proper subsets). *Its main purpose is to decouple our data abstraction from the specific way this data is represented (whether in persistent storage or in-memory)*. To this end, it contains two important sets of methods:
 
 - a *constructor* for each permissible format;
@@ -28,8 +44,8 @@ Since be permissible formats are specific to the concrete data set type, the met
 
 ![Alt text](http://www.plantuml.com/plantuml/png/SoWkIImgAStDuU9AJ2ekAKfCBb58paaiBbPmIYnETKaiINJBByfDB57WuahDAyrL22ufAaqkAIrAJK6Iix5Hq73LIIzAJStJL705AREpKwZcKb08S0mA37KD0RASWyE0f5UmlvyFIDmbtiKnnD4joD7NbQiMPdHgRYO9niECW-jtoyn99UoW40ye5U_Z6Hm2qepcKPiQNLsitiIk4E5emeeHBkJYSaZDIm45Em00 "data_format")
 
-
 #### Data*Container* Interface
+
 Below is the corresponding UML diagram. It shows the idea of data containers by leveraging *parameterized classes* (a.k.a. *templates*), which we can implement in Python using [Generics](https://mypy.readthedocs.io/en/stable/generics.html): The Data**Container**Interface provides a *contract for how we can retrieve the relevant subsets* (training, test, and validation set, as well as the whole dataset) *from our data abstraction*. However, it *does not know anything about these subsets* except how to retrieve each – from the data container's point of view, these could be any kinds of objects. It is thus similar to a collection (such as list, set, or dictionary) in Python. When using this inbuilt collections, we often want to restrict the type of elements we can put into our collection to only those that make sense in our domain. We would do this by using `list[string]` or `list[int]`, etc. We will use this same principle for modeling our data containers, with two further modifications: Firstly, since there is no inbuilt type for the datasets we want to put into our container, so we need to define our own custom class for data sets. Secondly, we want to be able to use *sub*types of dataset (such as *structured* dataset or *image* dataset) whenever we instantiate a concrete data containers. The challenge is that for a *given* data container, all its elements need to be of the *same* subtype: For example, if we are working with structured data, the training, test, and validation sets in our data container should all be of type StructuredDataSet, whereas if we work with image data, all subsets should be of type ImageDataSet.
 
 In the absence of Generics, we could model this by making the DataContainerInterface an *abstract* interface that we do not implement directly, and instead create subclasses for data container interfaces for each specific dataset type (StructuredDataContainerInterface, SemiStructuredDataContainerInterface, ImageDataContainerInterface, etc.). I actually started out with this approach, but while this may seem on the surface like a simpler solution than to use Generics, it soon leads to greater complexity because it multiplies the number of necessary classes. This is especially true for a general framework such as ours, where we want to follow the famous design principle to depend on abstractions rather than concretions: Since we have to duplicate this structure for both interfaces and implementation, we end up with a BaseDataContainerInterface, StructuredDataContainerInterface, ImageDataContainerInterface,... as well as BaseDataContainer, StructuredDataContainer, ImageDataContainer, etc. Note that either way we will end up with this proliferation of classes for Data*Sets* - but by contrast to Data*Container*(Interface)s, it actually serves the important purpose of defining the specifics for that kind of data: The interfaces specify a specific contract from which formats a given kind of dataset can be created, to which formats it can be converted, etc.; and the implementations come up with a concrete way of achieving this behavior. However, there is no need to duplicate this logic at the level of the data container.
