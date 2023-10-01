@@ -134,7 +134,6 @@ dmypy.json
 images/*
 **/tmp/
 **_tmp.*
-**/data/
 **/_old/
 **/lightning_logs/
 
