@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"python.defaultInterpreterPath": "~/repos/object-oriented-ML/design_decisions/existing_frameworks/sagemaker_pipelines/.venv/bin/python",
+		"terminal.integrated.cwd": "design_decisions/existing_frameworks/sagemaker_pipelines",
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [],
+	},
+}
