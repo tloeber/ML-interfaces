@@ -7,7 +7,7 @@ setup:
 
 	@echo "\nPlease manually set this environment as default in IDE for this project (so you "\
 		"don't have to manually activate it for each shell using 'python3 -m poetry shell')."
-	@echo `python3 -m poetry env info | grep Path:`
+	@echo `python3 -m poetry env info --executable`
 
 test:
 	poetry run pytest
